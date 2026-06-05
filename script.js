@@ -137,7 +137,7 @@ function showUsers(list) {
         observer.unobserve(img);
       }
     });
-  }, { rootMargin: "150px" });
+  }, { rootMargin: "600px" });
 
   list.forEach(function(user) {
     const card = document.createElement("div");
