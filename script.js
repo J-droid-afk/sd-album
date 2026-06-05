@@ -128,12 +128,23 @@ function showUsers(list) {
     return;
   }
 
+  // 懒加载观察器
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        observer.unobserve(img);
+      }
+    });
+  }, { rootMargin: "150px" });
+
   list.forEach(function(user) {
     const card = document.createElement("div");
     card.className = "photo-card-item";
 
     const img = document.createElement("img");
-    img.src = user.photo;
+    img.dataset.src = user.photo;
     img.alt = user.jobNo;
     img.onclick = function() {
       openViewer(user.photo);
@@ -152,6 +163,7 @@ function showUsers(list) {
     };
 
     photoGrid.appendChild(card);
+    observer.observe(img);
   });
 }
 
