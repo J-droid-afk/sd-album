@@ -161,6 +161,8 @@ button:active {
   cursor: pointer;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.15s;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 200px;
 }
 
 .photo-card-item:active {
