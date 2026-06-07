@@ -219,13 +219,39 @@ init();
     );
 
     if (updateResp.ok) {
-      showStatus('保存成功！约30秒后生效', 'success');
+      // 同时更新 index.html 的版本号，强制刷新缓存
+      await bumpVersion();
+      showStatus('保存成功！约30秒后生效，刷新页面即可', 'success');
     } else {
       throw new Error('保存失败');
     }
   } catch(e) {
     showStatus('保存失败: ' + e.message, 'error');
   }
+}
+
+async function bumpVersion() {
+  try {
+    const resp = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/index.html`,
+      { headers: { Authorization: `token ${gitToken}` } }
+    );
+    const info = await resp.json();
+    let html = decodeURIComponent(escape(atob(info.content)));
+    html = html.replace(/script\.js\?v=\d+/g, 'script.js?v=' + Date.now());
+    await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/index.html`,
+      {
+        method: 'PUT',
+        headers: { Authorization: `token ${gitToken}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: '更新缓存版本号',
+          content: btoa(unescape(encodeURIComponent(html))),
+          sha: info.sha
+        })
+      }
+    );
+  } catch(e) { /* 非关键，忽略 */ }
 }
 
 // ===== 图片上传 =====
