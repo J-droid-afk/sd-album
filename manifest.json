@@ -1,0 +1,16 @@
+{
+  "name": "SD 相册管理",
+  "short_name": "SD管理",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "background_color": "#fdf2ee",
+  "theme_color": "#e8a598",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo_opt.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
