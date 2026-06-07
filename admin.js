@@ -50,10 +50,17 @@ async function loadData() {
       `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${DATA_PATH}`,
       { headers: { Authorization: `token ${gitToken}` } }
     );
-    if (!resp.ok) throw new Error('加载失败');
+    if (resp.status === 401) {
+      showStatus('Token 无效或已过期，请重新创建', 'error');
+      return;
+    }
+    if (resp.status === 404) {
+      showStatus('仓库或文件不存在，请联系管理员', 'error');
+      return;
+    }
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     const content = atob(data.content);
-    // 从 script.js 中提取 users 数组
     const match = content.match(/const users = (\[[\s\S]*?\]);/);
     if (match) {
       users = eval(match[1]);
@@ -61,7 +68,7 @@ async function loadData() {
     renderList();
     showStatus(`已加载 ${users.length} 名员工`, 'success');
   } catch(e) {
-    showStatus('加载数据失败，请检查网络', 'error');
+    showStatus('加载失败: ' + e.message + '，请检查网络后刷新重试', 'error');
   }
 }
 
