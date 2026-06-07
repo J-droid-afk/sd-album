@@ -33,6 +33,7 @@ body::before {
   text-align: center;
   height: 100px;
   background: url("./logo_opt.png") center / contain no-repeat;
+  mix-blend-mode: multiply;
 }
 
 .title-box h1 {
