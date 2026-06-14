@@ -1,0 +1,5 @@
+{
+	"siteId": "0d4500dc-1195-4e0f-bcc4-b7639e1b58e3",
+	"dbConnectionString": "postgres://localhost:57851/postgres",
+	"liveTunnelSlug": "da26801a"
+}

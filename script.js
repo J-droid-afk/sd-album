@@ -1,6 +1,7 @@
 // 自动生成 - SD相册员工数据
 const users = [
   { jobNo: "002", wechat: "", phone: "", photo: "./images/002.jpg" },
+  { jobNo: "005", wechat: "", phone: "", photo: "./images/005.jpg" },
   { jobNo: "006", wechat: "", phone: "", photo: "./images/006.jpg" },
   { jobNo: "007", wechat: "", phone: "", photo: "./images/007.jpg" },
   { jobNo: "008", wechat: "", phone: "", photo: "./images/008.jpg" },
@@ -12,27 +13,23 @@ const users = [
   { jobNo: "61", wechat: "", phone: "", photo: "./images/61.jpg" },
   { jobNo: "066", wechat: "", phone: "", photo: "./images/066.jpg" },
   { jobNo: "077", wechat: "", phone: "", photo: "./images/077.jpg" },
-  { jobNo: "008_1", wechat: "", phone: "", photo: "./images/008_1.jpg" },
   { jobNo: "86", wechat: "", phone: "", photo: "./images/86.jpg" },
   { jobNo: "088", wechat: "", phone: "", photo: "./images/088.jpg" },
   { jobNo: "099", wechat: "", phone: "", photo: "./images/099.jpg" },
+  { jobNo: "104", wechat: "", phone: "", photo: "./images/104.jpg" },
   { jobNo: "108", wechat: "", phone: "", photo: "./images/108.jpg" },
+  { jobNo: "118", wechat: "", phone: "", photo: "./images/118.jpg" },
   { jobNo: "122", wechat: "", phone: "", photo: "./images/122.jpg" },
   { jobNo: "123", wechat: "", phone: "", photo: "./images/123.jpg" },
-  { jobNo: "A001-23", wechat: "", phone: "", photo: "./images/A001-23.jpg" },
-  { jobNo: "A001-25", wechat: "", phone: "", photo: "./images/A001-25.jpg" },
   { jobNo: "126", wechat: "", phone: "", photo: "./images/126.jpg" },
   { jobNo: "A001-29", wechat: "", phone: "", photo: "./images/A001-29.jpg" },
-  { jobNo: "A001-35", wechat: "", phone: "", photo: "./images/A001-35.jpg" },
   { jobNo: "138", wechat: "", phone: "", photo: "./images/138.jpg" },
   { jobNo: "139", wechat: "", phone: "", photo: "./images/139.jpg" },
   { jobNo: "155", wechat: "", phone: "", photo: "./images/155.jpg" },
   { jobNo: "A001-59", wechat: "", phone: "", photo: "./images/A001-59.jpg" },
   { jobNo: "A001-60", wechat: "", phone: "", photo: "./images/A001-60.jpg" },
   { jobNo: "166", wechat: "", phone: "", photo: "./images/166.jpg" },
-  { jobNo: "A001-67", wechat: "", phone: "", photo: "./images/A001-67.jpg" },
-  { jobNo: "A001-72", wechat: "", phone: "", photo: "./images/A001-72.jpg" },
-  { jobNo: "A001-75", wechat: "", phone: "", photo: "./images/A001-75.jpg" },
+  { jobNo: "168", wechat: "", phone: "", photo: "./images/168.jpg" },
   { jobNo: "A001-78", wechat: "", phone: "", photo: "./images/A001-78.jpg" },
   { jobNo: "180", wechat: "", phone: "", photo: "./images/180.jpg" },
   { jobNo: "A001-83", wechat: "", phone: "", photo: "./images/A001-83.jpg" },
@@ -70,6 +67,7 @@ const users = [
   { jobNo: "700", wechat: "", phone: "", photo: "./images/700.jpg" },
   { jobNo: "789", wechat: "", phone: "", photo: "./images/789.jpg" },
   { jobNo: "800", wechat: "", phone: "", photo: "./images/800.jpg" },
+  { jobNo: "801", wechat: "", phone: "", photo: "./images/801.jpg" },
   { jobNo: "803", wechat: "", phone: "", photo: "./images/803.jpg" },
   { jobNo: "808", wechat: "", phone: "", photo: "./images/808.jpg" },
   { jobNo: "809", wechat: "", phone: "", photo: "./images/809.jpg" },
@@ -98,10 +96,12 @@ const users = [
   { jobNo: "933", wechat: "", phone: "", photo: "./images/933.jpg" },
   { jobNo: "938", wechat: "", phone: "", photo: "./images/938.jpg" },
   { jobNo: "966", wechat: "", phone: "", photo: "./images/966.jpg" },
+  { jobNo: "968", wechat: "", phone: "", photo: "./images/968.jpg" },
   { jobNo: "985", wechat: "", phone: "", photo: "./images/985.jpg" },
   { jobNo: "986", wechat: "", phone: "", photo: "./images/986.jpg" },
   { jobNo: "988", wechat: "", phone: "", photo: "./images/988.jpg" },
   { jobNo: "995", wechat: "", phone: "", photo: "./images/995.jpg" },
+  { jobNo: "999", wechat: "", phone: "", photo: "./images/999.jpg" },
   { jobNo: "1001", wechat: "", phone: "", photo: "./images/1001.jpg" },
   { jobNo: "A001-102", wechat: "", phone: "", photo: "./images/A001-102.jpg" },
   { jobNo: "833_1", wechat: "", phone: "", photo: "./images/833_1.jpg" },
@@ -113,73 +113,47 @@ let currentUser = null;
 
 function init() {
   showUsers(users);
-  document.getElementById("jobInput").addEventListener("input", function() {
-    filterUsers(this.value);
-  });
+  document.getElementById("jobInput").addEventListener("input", function() { filterUsers(this.value); });
 }
 
 function showUsers(list) {
-  const photoGrid = document.getElementById("photoGrid");
-  const photoTitle = document.getElementById("photoTitle");
-  photoTitle.innerText = "全部员工（共 " + list.length + " 人）";
-  photoGrid.innerHTML = "";
-
-  if (list.length === 0) {
-    photoTitle.innerText = "暂无员工，请管理员添加";
-    return;
-  }
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        observer.unobserve(img);
-      }
-    });
+  const g = document.getElementById("photoGrid");
+  document.getElementById("photoTitle").innerText = "全部员工（共 " + list.length + " 人）";
+  g.innerHTML = "";
+  if (list.length === 0) { document.getElementById("photoTitle").innerText = "暂无员工，请管理员添加"; return; }
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.src = e.target.dataset.src; obs.unobserve(e.target); } });
   }, { rootMargin: "600px" });
-
-  list.forEach(function(user) {
-    const card = document.createElement("div");
-    card.className = "photo-card-item";
-    const img = document.createElement("img");
-    img.dataset.src = user.photo;
-    img.alt = user.jobNo;
-    img.onclick = function() { openViewer(user.photo); };
-    const label = document.createElement("div");
-    label.className = "photo-label";
-    label.innerText = user.jobNo;
-    card.appendChild(img);
-    card.appendChild(label);
-    card.onclick = function(e) { if (e.target.tagName !== "IMG") { selectUser(user); } };
-    photoGrid.appendChild(card);
-    observer.observe(img);
+  list.forEach(function(u) {
+    const c = document.createElement("div"); c.className = "photo-card-item";
+    const i = document.createElement("img"); i.dataset.src = u.photo; i.alt = u.jobNo;
+    i.onclick = function() { openViewer(u.photo); };
+    const l = document.createElement("div"); l.className = "photo-label"; l.innerText = u.jobNo;
+    c.appendChild(i); c.appendChild(l);
+    c.onclick = function(e) { if (e.target.tagName !== "IMG") { selectUser(u); } };
+    g.appendChild(c); obs.observe(i);
   });
 }
 
-function filterUsers(keyword) {
-  const kw = keyword.trim();
-  if (kw === "") { showUsers(users); return; }
-  const matched = users.filter(function(user) { return user.jobNo.toLowerCase().indexOf(kw.toLowerCase()) !== -1; });
-  showUsers(matched);
+function filterUsers(k) {
+  const kw = k.trim(); if (kw === "") { showUsers(users); return; }
+  showUsers(users.filter(function(u) { return u.jobNo.toLowerCase().indexOf(kw.toLowerCase()) !== -1; }));
 }
 
-function selectUser(user) {
-  currentUser = user;
-  document.getElementById("photoTitle").innerText = "已选中：" + user.jobNo;
-  document.getElementById("jobInput").value = user.jobNo;
+function selectUser(u) {
+  currentUser = u; document.getElementById("photoTitle").innerText = "已选中：" + u.jobNo;
+  document.getElementById("jobInput").value = u.jobNo;
 }
 
 function searchUser() { filterUsers(document.getElementById("jobInput").value); }
 
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(function() { alert("复制成功：" + text); }).catch(function() { alert("复制失败，请手动复制：" + text); });
+function copyText(t) {
+  navigator.clipboard.writeText(t).then(function() { alert("复制成功：" + t); }).catch(function() { alert("复制失败"); });
 }
 
-function openViewer(photoUrl) {
-  var v = document.getElementById("imageViewer");
-  document.getElementById("viewerImg").src = photoUrl.replace("./images/", "./images_full/");
-  v.style.display = "flex";
+function openViewer(url) {
+  document.getElementById("viewerImg").src = url.replace("./images/", "./images_full/");
+  document.getElementById("imageViewer").style.display = "flex";
 }
 
 function closeViewer() {
@@ -188,8 +162,7 @@ function closeViewer() {
 }
 
 function toggleSchedule() {
-  var b = document.getElementById("scheduleBody");
-  var a = document.getElementById("scheduleArrow");
+  var b = document.getElementById("scheduleBody"), a = document.getElementById("scheduleArrow");
   if (b.style.display === "none") { b.style.display = "block"; a.classList.add("open"); }
   else { b.style.display = "none"; a.classList.remove("open"); }
 }
