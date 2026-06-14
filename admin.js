@@ -1,6 +1,6 @@
 // SD 相册管理后台
 const ADMIN_PWD = 'sd2026';
-const REPO_OWNER = 'linyangjiang39-debug';
+const REPO_OWNER = 'J-droid-afk';
 const REPO_NAME = 'sd-album';
 const DATA_PATH = 'script.js';
 
