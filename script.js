@@ -142,26 +142,16 @@ function showUsers(list) {
   list.forEach(function(user) {
     const card = document.createElement("div");
     card.className = "photo-card-item";
-
     const img = document.createElement("img");
     img.dataset.src = user.photo;
     img.alt = user.jobNo;
-    img.onclick = function() {
-      openViewer(user.photo);
-    };
-
+    img.onclick = function() { openViewer(user.photo); };
     const label = document.createElement("div");
     label.className = "photo-label";
     label.innerText = user.jobNo;
-
     card.appendChild(img);
     card.appendChild(label);
-    card.onclick = function(e) {
-      if (e.target.tagName !== "IMG") {
-        selectUser(user);
-      }
-    };
-
+    card.onclick = function(e) { if (e.target.tagName !== "IMG") { selectUser(user); } };
     photoGrid.appendChild(card);
     observer.observe(img);
   });
@@ -170,9 +160,7 @@ function showUsers(list) {
 function filterUsers(keyword) {
   const kw = keyword.trim();
   if (kw === "") { showUsers(users); return; }
-  const matched = users.filter(function(user) {
-    return user.jobNo.toLowerCase().indexOf(kw.toLowerCase()) !== -1;
-  });
+  const matched = users.filter(function(user) { return user.jobNo.toLowerCase().indexOf(kw.toLowerCase()) !== -1; });
   showUsers(matched);
 }
 
@@ -182,41 +170,28 @@ function selectUser(user) {
   document.getElementById("jobInput").value = user.jobNo;
 }
 
-function searchUser() {
-  filterUsers(document.getElementById("jobInput").value);
-}
+function searchUser() { filterUsers(document.getElementById("jobInput").value); }
 
 function copyText(text) {
-  navigator.clipboard.writeText(text).then(function() {
-    alert("复制成功：" + text);
-  }).catch(function() {
-    alert("复制失败，请手动复制：" + text);
-  });
+  navigator.clipboard.writeText(text).then(function() { alert("复制成功：" + text); }).catch(function() { alert("复制失败，请手动复制：" + text); });
 }
 
 function openViewer(photoUrl) {
   var v = document.getElementById("imageViewer");
-  var fullUrl = photoUrl.replace("./images/", "./images_full/");
-  document.getElementById("viewerImg").src = fullUrl;
+  document.getElementById("viewerImg").src = photoUrl.replace("./images/", "./images_full/");
   v.style.display = "flex";
 }
 
 function closeViewer() {
-  var v = document.getElementById("imageViewer");
-  v.style.display = "none";
+  document.getElementById("imageViewer").style.display = "none";
   document.getElementById("viewerImg").src = "";
 }
 
 function toggleSchedule() {
-  var body = document.getElementById("scheduleBody");
-  var arrow = document.getElementById("scheduleArrow");
-  if (body.style.display === "none") {
-    body.style.display = "block";
-    arrow.classList.add("open");
-  } else {
-    body.style.display = "none";
-    arrow.classList.remove("open");
-  }
+  var b = document.getElementById("scheduleBody");
+  var a = document.getElementById("scheduleArrow");
+  if (b.style.display === "none") { b.style.display = "block"; a.classList.add("open"); }
+  else { b.style.display = "none"; a.classList.remove("open"); }
 }
 
 init();
