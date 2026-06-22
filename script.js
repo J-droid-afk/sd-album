@@ -421,12 +421,6 @@ const users = [
     photo: "./images/866.jpg"
   },
   {
-    jobNo: "880",
-    wechat: "",
-    phone: "",
-    photo: "./images/880.jpg"
-  },
-  {
     jobNo: "888",
     wechat: "",
     phone: "",
