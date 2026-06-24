@@ -33,7 +33,7 @@ body::before {
   text-align: center;
   height: 70px;
   background:
-    url("./logo_opt.png") center / contain no-repeat,
+    url("./logo_opt.webp") center / contain no-repeat,
     linear-gradient(to bottom, transparent 40%, rgba(253,242,238,0.6) 100%);
 }
 
