@@ -1,12 +1,6 @@
 // 自动生成 - SD相册员工数据
 const users = [
   {
-    jobNo: "100",
-    wechat: "",
-    phone: "",
-    photo: "./images/100.webp"
-  },
-  {
     jobNo: "101",
     wechat: "",
     phone: "",
