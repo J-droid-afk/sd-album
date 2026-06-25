@@ -395,12 +395,6 @@ const users = [
     wechat: "",
     phone: "",
     photo: "./images/900.webp"
-  },
-  {
-    jobNo: "905",
-    wechat: "",
-    phone: "",
-    photo: "./images/0905.webp"
   }
 ];
 
